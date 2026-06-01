@@ -1,0 +1,28 @@
+{
+  "name": "notion-sticky",
+  "version": "1.0.0",
+  "description": "Pop out any Notion page as a small always-on-top sticky window",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "debug": "electron . --dbg --auto-quit",
+    "build": "electron-builder --win portable",
+    "build:installer": "electron-builder --win nsis"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^33.0.0",
+    "electron-builder": "^25.0.0"
+  },
+  "build": {
+    "appId": "com.notion-sticky.app",
+    "productName": "Notion Sticky",
+    "win": {
+      "target": ["portable"]
+    },
+    "portable": {
+      "artifactName": "NotionSticky.exe"
+    }
+  }
+}
