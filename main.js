@@ -927,7 +927,7 @@ function createStickyWindow(url) {
 
   // Open external links in the default browser
   win.webContents.on('will-navigate', (event, navigationUrl) => {
-    if (navigationUrl.includes('notion.so') || navigationUrl.includes('notion.site')) {
+    if (navigationUrl.includes('notion.so') || navigationUrl.includes('notion.site') || navigationUrl.includes('notion.com')) {
       return;
     }
     event.preventDefault();
@@ -939,7 +939,9 @@ function createStickyWindow(url) {
     if (openUrl.includes('accounts.google.com') ||
         openUrl.includes('appleid.apple.com') ||
         openUrl.includes('login.microsoftonline.com') ||
-        openUrl.includes('notion.so')) {
+        openUrl.includes('notion.so') ||
+        openUrl.includes('notion.site') ||
+        openUrl.includes('notion.com')) {
       return { action: 'allow' };
     }
     shell.openExternal(openUrl);
@@ -960,8 +962,9 @@ function createStickyWindow(url) {
 function getNotionUrlFromClipboard() {
   const text = clipboard.readText().trim();
 
-  // Accept notion.so URLs
-  if (text.includes('notion.so/') || text.includes('notion.site/')) {
+  // Accept Notion URLs across all domains: notion.so, notion.site,
+  // and notion.com / app.notion.com (Notion migrated to notion.com)
+  if (text.includes('notion.so/') || text.includes('notion.site/') || text.includes('notion.com/')) {
     return text;
   }
 
@@ -1106,7 +1109,7 @@ ipcMain.on('close-window', (event) => {
 ipcMain.on('open-url', (event, url) => {
   const win = BrowserWindow.fromWebContents(event.sender);
   if (win && !win.isDestroyed()) win.close();
-  if (url && (url.includes('notion.so') || url.includes('notion.site'))) {
+  if (url && (url.includes('notion.so') || url.includes('notion.site') || url.includes('notion.com'))) {
     createStickyWindow(url);
   }
 });

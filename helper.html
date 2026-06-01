@@ -169,7 +169,7 @@
     <p style="margin-top: 4px; font-size: 11px; color: #555;">— or paste a URL below —</p>
 
     <div class="input-row">
-      <input type="text" id="url-input" placeholder="https://notion.so/your-page..." autofocus>
+      <input type="text" id="url-input" placeholder="https://notion.com/your-page..." autofocus>
       <button class="go" id="btn-go">Pin it</button>
     </div>
   </div>
@@ -180,7 +180,7 @@
 
     function submit() {
       const url = input.value.trim();
-      if (url && (url.includes('notion.so') || url.includes('notion.site'))) {
+      if (url && (url.includes('notion.so') || url.includes('notion.site') || url.includes('notion.com'))) {
         window.notionSticky.openUrl(url);
       } else {
         input.style.borderColor = '#e84040';
